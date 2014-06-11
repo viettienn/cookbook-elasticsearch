@@ -71,14 +71,6 @@ stop() {
     if [[ -f $PIDFILE ]]; then
       echo -n -e "\033[1mStopping elasticsearch...\033[0m"
 
-      # REMOVE PIDFILE AND EXIT IF PROCESS NOT RUNNING
-      if [ ! $CHECK_PID_RUNNING ]; then
-        echo -e "\033[1mPID file found, but no matching process running?\033[0m"
-        echo    "Removing PID file..."
-        su <%= node[:elasticsearch][:user] %> -m -c "rm $PIDFILE"
-        exit 0
-      fi
-
       # KILL PROCESS
       pid=$(cat $PIDFILE)
       su <%= node[:elasticsearch][:user] %> -m -c "kill $(cat $PIDFILE)"
