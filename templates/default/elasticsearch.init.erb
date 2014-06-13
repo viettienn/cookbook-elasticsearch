@@ -37,7 +37,6 @@ ES_INCLUDE='<%= node.elasticsearch[:path][:conf] %>/elasticsearch-env.sh'
 CHECK_PID_RUNNING=$(ps ax | grep 'java' | grep -e "es.pidfile=$PIDFILE" | sed 's/^\s*\([0-9]*\)\s.*/\1/')
 
 start() {
-    before_start
     if [ -f $PIDFILE ]; then
       # PIDFILE EXISTS -- ES RUNNING?
       echo -e "PID file found in $PIDFILE"
@@ -112,6 +111,7 @@ stop() {
 }
 
 restart() {
+    before_restart
     stop
     timeout=30
     while ps aux | grep 'java' | grep -e "es.pidfile"; do
@@ -123,10 +123,10 @@ restart() {
     start
 }
 
-before_start() {
-  <% node.elasticsearch[:before_start].each do |command| %>
+before_restart() {
+  <% node.elasticsearch[:before_restart].each do |command| %>
     <%= command %>
-  <% end if node.elasticsearch[:before_start] %>
+  <% end if node.elasticsearch[:before_restart] %>
 }
 
 status() {
