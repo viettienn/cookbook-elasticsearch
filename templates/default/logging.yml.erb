@@ -25,10 +25,13 @@
 #     // ...
 #
 
-es.logger.level: INFO
-rootLogger: INFO, console, file
+# es.logger.level: INFO
+# rootLogger: INFO, console, file
 
 # ----- Configuration set by Chef ---------------------------------------------
+es.logger.level: <%= node.elasticsearch['es.logger.level'] %>
+rootLogger: <%= node.elasticsearch['rootLogger'] %>
+
 <% node.elasticsearch[:logging].sort.each do |key, value| %>
 logger.<%= key %>: <%= value %>
 <% end %>

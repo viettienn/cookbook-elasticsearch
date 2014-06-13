@@ -1,3 +1,6 @@
+default.elasticsearch['es.logger.level'] = 'DEBUG'
+default.elasticsearch['rootLogger'] = 'DEBUG, console, file'
+
 default.elasticsearch[:logging]['action'] = 'DEBUG'
 default.elasticsearch[:logging]['com.amazonaws'] = 'WARN'
 default.elasticsearch[:logging]['index.search.slowlog'] = 'TRACE, index_search_slow_log_file'
